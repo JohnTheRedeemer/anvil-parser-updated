@@ -115,6 +115,30 @@ class EmptyChunk:
             self.add_section(section)
         section.set_block(block, x, y % 16, z)
 
+    def add_entity(self, entity: nbt.NBTFile):
+        """
+        Adds an entity to the chunk
+
+        Parameters
+        ----------
+        entity : :class:`NBTFile`
+            Entity to add
+        """
+        self.block_entities.append(entity)
+        self.tile_entities.append(entity)
+
+    def add_entity(self, entity: nbt.TAG_Compound):
+        """
+        Adds an entity to the chunk
+
+        Parameters
+        ----------
+        entity : :class:`nbt.TAG_Compound`
+            Entity to add
+        """
+        self.block_entities.append(entity)
+        self.tile_entities.append(entity)
+
     def save(self) -> nbt.NBTFile:
         """
         Saves the chunk data to a :class:`NBTFile`
