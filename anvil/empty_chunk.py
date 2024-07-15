@@ -20,12 +20,14 @@ class EmptyChunk:
     version: :class:`int`
         Chunk's DataVersion
     """
-    __slots__ = ('x', 'z', 'sections', 'version')
+    __slots__ = ('x', 'z', 'sections', 'version', 'block_entities', 'tile_entities')
     def __init__(self, x: int, z: int):
         self.x = x
         self.z = z
         self.sections: List[EmptySection] = [None]*16
         self.version = 1976
+        self.block_entities = []
+        self.tile_entities = []
 
     def add_section(self, section: EmptySection, replace: bool = True):
         """
@@ -37,7 +39,7 @@ class EmptyChunk:
             Section to add
         replace
             Whether to replace section if one at same Y already exists
-        
+
         Raises
         ------
         anvil.EmptySectionAlreadyExists
@@ -50,7 +52,7 @@ class EmptyChunk:
     def get_block(self, x: int, y: int, z: int) -> Block:
         """
         Gets the block at given coordinates
-        
+
         Parameters
         ----------
         int x, z
@@ -85,7 +87,7 @@ class EmptyChunk:
     def set_block(self, block: Block, x: int, y: int, z: int):
         """
         Sets block at given coordinates
-        
+
         Parameters
         ----------
         int x, z
@@ -97,7 +99,7 @@ class EmptyChunk:
         ------
         anvil.OutOfBoundCoordidnates
             If X, Y or Z are not in the proper range
-        
+
         """
         if x < 0 or x > 15:
             raise OutOfBoundsCoordinates(f'X ({x!r}) must be in range of 0 to 15')
